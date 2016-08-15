@@ -514,7 +514,10 @@ static BCPoint bezierAxisIntersection(BCBezierCurve curve, BCAxis axis, CGFloat 
         t -= f/df;
     }
     
+    assert(isfinite(t));
+    assert(t >= -0.5 && t <= 1.5);
     assert(t >= 0 && t <= 1.0);
+    t = MIN(MAX(0.0, t), 1.0);
     
     double nt = 1.0 - t;
     double intersection = nt*nt*nt*curve.a.v[pAxis] + 3.0*nt*nt*t*c1.v[pAxis] + 3.0*nt*t*t*c2.v[pAxis] + t*t*t*curve.b.v[pAxis];
